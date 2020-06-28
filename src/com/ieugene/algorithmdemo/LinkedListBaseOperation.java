@@ -116,7 +116,7 @@ public class LinkedListBaseOperation {
     /**
      * 单向链表
      */
-    private static class Node {
+    public static class Node {
         int data;
         Node next;
 
@@ -128,7 +128,7 @@ public class LinkedListBaseOperation {
     /**
      * 双向链表
      */
-    private static class NodeTW {
+    public static class NodeTW {
         int data;
         NodeTW next;
         NodeTW prev;
