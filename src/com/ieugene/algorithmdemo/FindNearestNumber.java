@@ -17,7 +17,7 @@ public class FindNearestNumber {
         //复制并入参，避免直接修改入参
         int[] numbersCopy = Arrays.copyOf(numbers, numbers.length);
         //如果边界值是0，说明当前是最小值
-        if (index == 0) return reverseLast(numbersCopy);
+        if (index == 0) return null;
         //把逆序区域的前一位和逆序区域中刚刚大于它的数字交换位置
         exchangeHead(numbersCopy, index);
         //把原来逆序区转为顺序
@@ -25,53 +25,34 @@ public class FindNearestNumber {
         return numbersCopy;
     }
 
-
-    private int[] reverseLast(int[] numbers) {
-        int len = numbers.length;
-        int temp = numbers[len - 1];
-        numbers[len - 1] = numbers[len - 2];
-        numbers[len - 2] = temp;
-        return numbers;
-    }
-
-    private int findTransferPoint(int[] numbers) {
+    private static int findTransferPoint(int[] numbers) {
         for (int i = numbers.length - 1; i > 0; i--) {
-            if (numbers[i - 1] > numbers[i]) {
-                return i - 1;
+            if (numbers[i] > numbers[i - 1]) {
+                return i;
             }
         }
         return 0;
     }
 
-    private int[] exchangeHead(int[] number, int index) {
-        int head = number[index - 1];
-        int nearestIndex = 0;
-        int min = Integer.MAX_VALUE;
-        for (int i = number.length - 1; i >= index; i--) {
-            if (head < number[i] && (number[i] - head) < min) {
-                nearestIndex = i;
-                min = number[i] - head;
+    private static int[] exchangeHead(int[] numbers, int index) {
+        int head = numbers[index - 1];
+        for (int i = numbers.length - 1; i > 0; i--) {
+            if (head < numbers[i]) {
+                numbers[index - 1] = numbers[i];
+                numbers[i] = head;
+                break;
             }
         }
-        number[index - 1] = number[nearestIndex];
-        number[nearestIndex] = head;
-        return number;
+        return numbers;
     }
 
-    private int[] reverse(int[] number, int index) {
-        for (int i = index; i < number.length; i++) {
-            boolean isSorted = true;
-            for (int j = index; j < number.length - 1; j++) {
-                if (number[j] > number[j + 1]) {
-                    int temp = number[j];
-                    number[j] = number[j + 1];
-                    number[j + 1] = temp;
-                    isSorted = false;
-                }
-            }
-            if (isSorted) break;
+    private static int[] reverse(int[] num, int index) {
+        for (int i = index, j = num.length - 1; i < j; i++, j--) {
+            int temp = num[i];
+            num[i] = num[j];
+            num[j] = temp;
         }
-        return number;
+        return num;
     }
 
     public static void main(String[] args) {
