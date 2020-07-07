@@ -132,7 +132,7 @@ public class LinkedListBaseOperation {
         int data;
         NodeTW next;
         NodeTW prev;
-
+        String key;
         NodeTW(int data) {
             this.data = data;
         }
